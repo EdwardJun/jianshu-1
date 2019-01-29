@@ -4,7 +4,9 @@ import {
   Logo,
   Nav,
   NavItem,
-  NavSearch
+  NavSearch,
+  Addition,
+  Button
 } from './style'
 
 class Header extends Component {
@@ -18,6 +20,10 @@ class Header extends Component {
           <NavItem className="right">登陆</NavItem>
           <NavItem className="right">Aa</NavItem>
           <NavSearch></NavSearch>
+          <Addition>
+            <Button className='writting'>写文章</Button>
+            <Button className='reg'>注册</Button>
+          </Addition>
         </Nav>
       </HeaderWrapper>
     )
