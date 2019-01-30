@@ -24,7 +24,6 @@ export const Nav = styled.div`
   height: 100%;
   width: 960px;
   margin: 0 auto;
-
 `
 
 export const NavItem = styled.div`
@@ -51,15 +50,25 @@ export const NavSearch = styled.input.attrs({
   height: 38px;
   margin-top: 9px;
   margin-left: 20px;
-  padding: 0 20px;
+  padding: 0 35px 0 20px;
   box-sizing: border-box;
   border: none;
   outline: none;
   border-radius: 19px;
   background: #eee;
   font-size: 14px;
+  color: #666;
+  transition: all 0.2s ease-in;
   &::placeholder{
     color: #999;
+  }
+  &.focused {
+    transition: all 0.2s ease-out;
+    width: 240px;
+  }
+  &.focused + .icon-search:before {
+    background: #777;
+    color: #fff;
   }
 `
 
@@ -86,4 +95,9 @@ export const Button = styled.div`
     background: #ec6149;
     color: #fff;
   }
+`
+
+export const SearchWrapper = styled.div`
+  float: left;
+  position: relative;
 `
