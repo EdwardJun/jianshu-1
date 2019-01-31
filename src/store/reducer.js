@@ -1,19 +1,8 @@
-import { SEARCHFOCUS, SEARCHBLUR } from './actionTypes'
+import { combineReducers } from 'redux'
+import { reducer as headerReducer } from '../common/header/store'
 
-const defaultState = {
-  focused: false
-}
+const reducer = combineReducers({
+  header: headerReducer
+})
 
-export default (state=defaultState, action) => {
-  if (action.type === SEARCHFOCUS) {
-    let newState = JSON.parse(JSON.stringify(state))
-    newState.focused = true
-    return newState
-  }
-  if (action.type === SEARCHBLUR) {
-    let newState = JSON.parse(JSON.stringify(state))
-    newState.focused = false
-    return newState
-  }
-  return state
-}
+export default reducer

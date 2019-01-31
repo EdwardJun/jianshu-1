@@ -2,11 +2,11 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-01-31 14:09:52
+ * @Last Modified time: 2019-01-31 15:33:56
  */
 import React from 'react'
 import { connect } from 'react-redux'
-import { getInputFocusAction, getInputBlurAction } from '../../store/actionCreators'
+import { actionCreators } from './store'
 import { 
   HeaderWrapper,
   Logo,
@@ -48,19 +48,17 @@ const Header = (props) => (
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.focused
+    focused: state.header.focused
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocus() {
-      const action = getInputFocusAction()
-      dispatch(action)
+      dispatch(actionCreators.getInputFocusAction())
     },
     handleInputBlur() {
-      const action = getInputBlurAction()
-      dispatch(action)
+      dispatch(actionCreators.getInputBlurAction())
     }
   }
 }
