@@ -2,7 +2,7 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-01-31 15:33:56
+ * @Last Modified time: 2019-01-31 18:26:20
  */
 import React from 'react'
 import { connect } from 'react-redux'
@@ -15,8 +15,36 @@ import {
   NavSearch,
   Addition,
   Button,
-  SearchWrapper
+  SearchWrapper,
+  SearchInfo,
+  SearchInfoTitle,
+  SearchInfoSwitch,
+  SearchInfoItem,
+  SearchInfoList
 } from './style'
+
+const getListArea = (show) => {
+  if (show) {
+    return (
+      <SearchInfo>
+        <SearchInfoTitle>
+          热门搜索
+          <SearchInfoSwitch>换一批</SearchInfoSwitch>
+        </SearchInfoTitle>
+        <SearchInfoList>
+          <SearchInfoItem>aaa</SearchInfoItem>
+          <SearchInfoItem>aaa</SearchInfoItem>
+          <SearchInfoItem>aaa</SearchInfoItem>
+          <SearchInfoItem>aaa</SearchInfoItem>
+          <SearchInfoItem>aaa</SearchInfoItem>
+          <SearchInfoItem>aaa</SearchInfoItem>
+        </SearchInfoList>
+      </SearchInfo>
+    )
+  } else {
+    return null
+  }
+}
 
 const Header = (props) => (
   <HeaderWrapper>
@@ -34,6 +62,7 @@ const Header = (props) => (
           onFocus={props.handleInputFocus}
           onBlur={props.handleInputBlur}/>
         <i className="iconfont icon-search"></i>
+        {getListArea(props.focused)}
       </SearchWrapper>
       <Addition>
         <Button className='writting'>
@@ -48,7 +77,8 @@ const Header = (props) => (
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.header.focused
+    // focused: state.get('header').get('focused')
+    focused: state.getIn(['header', 'focused'])
   }
 }
 
