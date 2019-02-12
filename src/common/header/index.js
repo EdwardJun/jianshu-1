@@ -2,11 +2,12 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-02-12 11:48:20
+ * @Last Modified time: 2019-02-12 19:00:41
  */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
+import uuid from 'uuid'
 import { 
   HeaderWrapper,
   Logo,
@@ -30,6 +31,7 @@ class Header extends Component {
   }
 
   render () {
+    const { focused, handleInputFocus, handleInputBlur } = this.props
     return (
       <HeaderWrapper>
         <Logo />
@@ -42,11 +44,11 @@ class Header extends Component {
           </NavItem>
           <SearchWrapper>
             <NavSearch 
-              className={this.props.focused ? 'focused' : ''}
-              onFocus={this.props.handleInputFocus}
-              onBlur={this.props.handleInputBlur}/>
+              className={focused ? 'focused' : ''}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}/>
             <i className="iconfont icon-search"></i>
-            {this.getListArea(this.props.focused)}
+            {this.getListArea()}
           </SearchWrapper>
           <Addition>
             <Button className='writting'>
@@ -60,8 +62,9 @@ class Header extends Component {
     )
   }
 
-  getListArea(show) {
-    if (show) {
+  getListArea() {
+    const { focused, list, page } = this.props
+    if (focused) {
       return (
         <SearchInfo>
           <SearchInfoTitle>
@@ -69,12 +72,11 @@ class Header extends Component {
             <SearchInfoSwitch>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
-            <SearchInfoItem>aaa</SearchInfoItem>
-            <SearchInfoItem>aaa</SearchInfoItem>
-            <SearchInfoItem>aaa</SearchInfoItem>
-            <SearchInfoItem>aaa</SearchInfoItem>
-            <SearchInfoItem>aaa</SearchInfoItem>
-            <SearchInfoItem>aaa</SearchInfoItem>
+            {
+              list.map((item) => {
+                return <SearchInfoItem key={uuid()}>{ item }</SearchInfoItem>
+              })
+            }
           </SearchInfoList>
         </SearchInfo>
       )
@@ -87,14 +89,16 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     // focused: state.get('header').get('focused')
-    focused: state.getIn(['header', 'focused'])
+    focused: state.getIn(['header', 'focused']),
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page'])
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocus() {
-      dispatch(actionCreators.getList())
+      dispatch(actionCreators.getSearchList())
       dispatch(actionCreators.getInputFocusAction())
     },
     handleInputBlur() {
