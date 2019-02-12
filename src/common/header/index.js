@@ -2,7 +2,7 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-01-31 18:26:20
+ * @Last Modified time: 2019-02-12 11:48:20
  */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -25,7 +25,7 @@ import {
 
 class Header extends Component {
 
-  constructor(props) {
+  constructor(props) { 
     super(props)
   }
 

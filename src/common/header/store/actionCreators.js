@@ -1,4 +1,5 @@
 import { SEARCHFOCUS, SEARCHBLUR } from './actionTypes'
+import axios from 'axios'
 
 export const getInputFocusAction = () => ({
   type: SEARCHFOCUS
@@ -10,6 +11,6 @@ export const getInputBlurAction = () => ({
 
 export const getList = () => {
   return (dispatch) => {
-    
+    axios.get('')
   }
 }
