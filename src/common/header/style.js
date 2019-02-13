@@ -129,9 +129,15 @@ export const SearchInfoTitle = styled.div`
 export const SearchInfoSwitch = styled.span`
   float:right;
   font-size: 13px;
+  cursor: pointer;
+  .spin {
+    display: inline-block;
+    transition: all .2s ease-in;
+  }
 `
 
 export const SearchInfoItem = styled.span`
+  cursor: pointer;
   margin-right: 10px;
   margin-bottom: 15px;
   padding: 0 5px;

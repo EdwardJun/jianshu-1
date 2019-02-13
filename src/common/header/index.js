@@ -2,7 +2,7 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-02-12 19:00:41
+ * @Last Modified time: 2019-02-13 16:49:26
  */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -26,12 +26,8 @@ import {
 
 class Header extends Component {
 
-  constructor(props) { 
-    super(props)
-  }
-
   render () {
-    const { focused, handleInputFocus, handleInputBlur } = this.props
+    const { focused, handleInputFocus, handleInputBlur, list } = this.props
     return (
       <HeaderWrapper>
         <Logo />
@@ -45,7 +41,7 @@ class Header extends Component {
           <SearchWrapper>
             <NavSearch 
               className={focused ? 'focused' : ''}
-              onFocus={handleInputFocus}
+              onFocus={() => handleInputFocus(list)}
               onBlur={handleInputBlur}/>
             <i className="iconfont icon-search"></i>
             {this.getListArea()}
@@ -63,20 +59,26 @@ class Header extends Component {
   }
 
   getListArea() {
-    const { focused, list, page } = this.props
-    if (focused) {
+    const { focused, mouseIn, list, page, totalPage, handleSearchInfoMouseIn, handleSearchInfoMouseOut, handleChangePage } = this.props
+
+    const jsList = list.toJS()
+    const pageList = []
+    for (let i = (page - 1) * 10; i < page * 10 && i < jsList.length; i++) {
+      pageList.push(<SearchInfoItem key={uuid()}>{ jsList[i] }</SearchInfoItem>)
+    }
+
+    if (focused || mouseIn) {
       return (
-        <SearchInfo>
+        <SearchInfo
+          onMouseEnter={handleSearchInfoMouseIn}
+          onMouseLeave={handleSearchInfoMouseOut}
+        >
           <SearchInfoTitle>
             热门搜索
-            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+            <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage, this.spinIcon)}><i ref={(icon) => {this.spinIcon = icon}} className="iconfont icon-refrash spin"></i>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
-            {
-              list.map((item) => {
-                return <SearchInfoItem key={uuid()}>{ item }</SearchInfoItem>
-              })
-            }
+            {pageList}
           </SearchInfoList>
         </SearchInfo>
       )
@@ -91,18 +93,35 @@ const mapStateToProps = (state) => {
     // focused: state.get('header').get('focused')
     focused: state.getIn(['header', 'focused']),
     list: state.getIn(['header', 'list']),
-    page: state.getIn(['header', 'page'])
+    page: state.getIn(['header', 'page']),
+    mouseIn: state.getIn(['header', 'mouseIn']),
+    totalPage: state.getIn(['header', 'totalPage'])
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInputFocus() {
-      dispatch(actionCreators.getSearchList())
+    handleInputFocus(list) {
+      (list.size === 0) && dispatch(actionCreators.getSearchList())
       dispatch(actionCreators.getInputFocusAction())
     },
     handleInputBlur() {
       dispatch(actionCreators.getInputBlurAction())
+    },
+    handleSearchInfoMouseIn() {
+      dispatch(actionCreators.getSearchInfoMouseInAction())
+    },
+    handleSearchInfoMouseOut() {
+      dispatch(actionCreators.getSearchInfoMouseOutAction())
+    },
+    handleChangePage(page, totalPage, spin) {
+      const originAngle = spin.style.transform.replace(/[^0-9]/ig, '')
+      spin.style.transform = `rotate(${+originAngle + 360}deg)`
+      if (page < totalPage) {
+        dispatch(actionCreators.getChangeSearchPageAction(page + 1))
+      } else {
+        dispatch(actionCreators.getChangeSearchPageAction(1))
+      }
     }
   }
 }

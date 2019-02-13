@@ -1,4 +1,4 @@
-import { SEARCHFOCUS, SEARCHBLUR, INITSEARCHLIST } from './actionTypes'
+import { SEARCHFOCUS, SEARCHBLUR, INITSEARCHLIST, SEARCHMOUSEIN, SEARCHMOUSEOUT, CHANGESEARCHLIST } from './actionTypes'
 import { fromJS } from 'immutable'
 import axios from 'axios'
 
@@ -14,6 +14,19 @@ export const getInputFocusAction = () => ({
 
 export const getInputBlurAction = () => ({
   type: SEARCHBLUR
+})
+
+export const getSearchInfoMouseInAction = () => ({
+  type: SEARCHMOUSEIN
+})
+
+export const getSearchInfoMouseOutAction = () => ({
+  type: SEARCHMOUSEOUT
+})
+
+export const getChangeSearchPageAction = (page) => ({
+  type: CHANGESEARCHLIST,
+  page: page
 })
 
 export const getSearchList = () => {

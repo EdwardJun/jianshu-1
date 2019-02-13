@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import Header from './common/header'
 import { Provider } from 'react-redux'
+import { BrowserRouter, Route } from 'react-router-dom'
+import Header from './common/header'
 import store from './store'
 
 class App extends Component {
@@ -8,7 +9,15 @@ class App extends Component {
     return (
       <Fragment>
         <Provider store={store}>
-          <Header />
+          <div>
+            <Header />
+            <BrowserRouter>
+              <div>
+                <Route path='/' exact render={()=><div>home</div>}></Route>
+                <Route path='/detail' exact render={()=><div>detail</div>}></Route>
+              </div>
+            </BrowserRouter>
+          </div>
         </Provider>
       </Fragment>
     );
