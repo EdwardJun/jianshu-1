@@ -103,6 +103,7 @@ export const SearchWrapper = styled.div`
 `
 
 export const SearchInfo = styled.div`
+  background: #fff;
   position: absolute;
   left: 0;
   top: 56px;

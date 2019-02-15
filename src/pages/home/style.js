@@ -14,20 +14,20 @@ export const HomeLeft = styled.div`
   .banner-img {
     width: 625px;
     height: 270px;
+    border-radius: 8px;
   }
 `
 
 export const HomeRight = styled.div`
-  width: 240px;
+  width: 280px;
   float: right;
-  height: 300px;
-  background: #333;
 `
 
 export const TopicWrapper = styled.div`
   padding: 20px 0 10px 0;
   overflow: hidden;
   margin-left: -18px;
+  border-bottom: 1px solid #dcdcdc;
 `
 
 export const TopicItem = styled.div`
@@ -49,4 +49,50 @@ export const TopicItem = styled.div`
     height: 32px;
     margin-right: 10px;
   }
+`
+
+export const ListItem = styled.div`
+  overflow: hidden;
+  padding: 20px 0 10px 0;
+  overflow: hidden;
+  img {
+    width: 150px;
+    height: 100px;
+    display: block;
+    float: right;
+    border-radius: 4px;
+  }
+`
+
+export const ListInfo = styled.div`
+  width: 450px;
+  float: left;
+  h3 {
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: bold;
+    color: #333;
+  }
+  p {
+    font-size: 13px;
+    line-height: 24px;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+`
+
+export const RecommendWrapper = styled.div`
+  margin: 30px 0;
+  width: 180px;
+`
+
+export const RecommendItem = styled.div`
+  width: 280px;
+  height: 50px;
+  background: url(${(props) => props.imgUrl});
+  background-size: contain;
 `
