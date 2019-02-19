@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { RecommendWrapper, RecommendItem } from '../style'
 import { connect } from 'react-redux'
 import uuid from 'uuid'
-class Recommend extends Component {
+class Recommend extends PureComponent {
   render() {
     const { recommendList } = this.props
     return (

@@ -2,12 +2,13 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-02-13 16:49:26
+ * @Last Modified time: 2019-02-19 17:31:57
  */
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
 import uuid from 'uuid'
+import { Link } from 'react-router-dom'
 import { 
   HeaderWrapper,
   Logo,
@@ -24,13 +25,15 @@ import {
   SearchInfoList
 } from './style'
 
-class Header extends Component {
+class Header extends PureComponent {
 
   render () {
     const { focused, handleInputFocus, handleInputBlur, list } = this.props
     return (
       <HeaderWrapper>
-        <Logo />
+        <Link to='/'>
+          <Logo />
+        </Link>
         <Nav>
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载App</NavItem>

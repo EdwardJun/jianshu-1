@@ -1,16 +1,27 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Writer from './components/Writer'
 import Topic from './components/Topic'
 import List from './components/List'
 import Recommend from './components/Recommend'
+import { scrollAnimation } from '../../utils'
+import { connect } from 'react-redux'
+import { actionCreators } from './store'
 import { 
   HomeWrapper,
   HomeLeft,
-  HomeRight 
+  HomeRight,
+  BackTop
 } from './style'
 
-class Home extends Component {
+class Home extends PureComponent {
+
+  handleScrollTop () {
+    const currentY = document.documentElement.scrollTop || document.body.scrollTop
+    scrollAnimation(currentY, 0)
+  }
+
   render() {
+
     return (
       <Fragment>
         <HomeWrapper>
@@ -24,9 +35,40 @@ class Home extends Component {
             <Writer></Writer>
           </HomeRight>
         </HomeWrapper>
+        {
+          this.props.showToTop ? <BackTop onClick={this.handleScrollTop}>⬆</BackTop> : null
+        }
       </Fragment>
     )
   }
+
+  componentDidMount() {
+    this.bindEvents();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.props.changeScrollTopShow)
+  }
+
+  bindEvents() {
+    window.addEventListener('scroll', this.props.changeScrollTopShow)
+  }
+
 }
 
-export default Home
+const mapStateToProps = (state) => ({
+  showToTop: state.getIn(['home', 'showToTop'])
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  changeScrollTopShow() {
+    const currentY = document.documentElement.scrollTop || document.body.scrollTop
+    if (currentY > 400) {
+      dispatch(actionCreators.toggleTopShow(true))
+    } else {
+      dispatch(actionCreators.toggleTopShow(false))
+    }
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

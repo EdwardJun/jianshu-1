@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { GET_MORE_LIST, TOGGLE_TOP_SHOW } from './actionTypes'
 import p1 from '../../../statics/1.png'
 import p2 from '../../../statics/2.png'
 import p3 from '../../../statics/3.png'
@@ -46,11 +47,16 @@ const defaultState = fromJS({
     {
       imgUrl: p5
     }
-  ]
+  ],
+  showToTop: false
 })
 
 export default (state=defaultState, action) => {
   switch(action.type) {
+    case GET_MORE_LIST:
+      return state.set('articleList', state.get('articleList').concat(action.moreList))
+    case TOGGLE_TOP_SHOW:
+      return state.set('showToTop', action.showToTop)
     default:
       return state;
   }
