@@ -2,7 +2,7 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-02-19 17:31:57
+ * @Last Modified time: 2019-02-20 17:23:58
  */
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
@@ -29,6 +29,9 @@ class Header extends PureComponent {
 
   render () {
     const { focused, handleInputFocus, handleInputBlur, list } = this.props
+    if (this.props.location.pathname === '/login') {
+      return null
+    }
     return (
       <HeaderWrapper>
         <Link to='/'>
