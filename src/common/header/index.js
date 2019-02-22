@@ -2,11 +2,12 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-02-20 17:23:58
+ * @Last Modified time: 2019-02-21 17:23:36
  */
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { actionCreators } from './store'
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
 import uuid from 'uuid'
 import { Link } from 'react-router-dom'
 import { 
@@ -28,7 +29,7 @@ import {
 class Header extends PureComponent {
 
   render () {
-    const { focused, handleInputFocus, handleInputBlur, list } = this.props
+    const { focused, handleInputFocus, handleInputBlur, list, login, handelLogOut } = this.props
     if (this.props.location.pathname === '/login') {
       return null
     }
@@ -40,7 +41,9 @@ class Header extends PureComponent {
         <Nav>
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载App</NavItem>
-          <NavItem className="right">登陆</NavItem>
+          {
+            login ? <NavItem className="right" onClick={handelLogOut}>退出</NavItem> : <Link to='/login'><NavItem className="right">登陆</NavItem></Link>
+          }
           <NavItem className="right">
            <i className="iconfont icon-Aa"></i>
           </NavItem>
@@ -101,7 +104,8 @@ const mapStateToProps = (state) => {
     list: state.getIn(['header', 'list']),
     page: state.getIn(['header', 'page']),
     mouseIn: state.getIn(['header', 'mouseIn']),
-    totalPage: state.getIn(['header', 'totalPage'])
+    totalPage: state.getIn(['header', 'totalPage']),
+    login: state.getIn(['login', 'login'])
   }
 }
 
@@ -128,6 +132,9 @@ const mapDispatchToProps = (dispatch) => {
       } else {
         dispatch(actionCreators.getChangeSearchPageAction(1))
       }
+    },
+    handelLogOut() {
+      dispatch(loginActionCreators.getLogOutAction(false))
     }
   }
 }

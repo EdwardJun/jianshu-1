@@ -1,7 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
 import Header from './common/header'
 import store from './store'
 import Home from './pages/home'
