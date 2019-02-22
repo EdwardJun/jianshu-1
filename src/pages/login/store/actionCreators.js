@@ -6,14 +6,13 @@ export const getLogOutAction = (login) => ({
   login: login
 })
 
-export const getLogInAction = (props, account, password) => {
+export const getLogInAction = (account, password) => {
   return (dispatch) => {
     if (account && password) {
       dispatch({
         type: Login_Result,
         success: true
       })
-      props.history.push('/')
     } else {
       alert('登陆失败！')
     }

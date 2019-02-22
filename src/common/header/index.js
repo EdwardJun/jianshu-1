@@ -2,7 +2,7 @@
  * @Author: zhuyanlin 
  * @Date: 2019-01-30 11:48:11 
  * @Last Modified by: zhuyanlin
- * @Last Modified time: 2019-02-21 17:23:36
+ * @Last Modified time: 2019-02-22 14:57:32
  */
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
@@ -56,10 +56,12 @@ class Header extends PureComponent {
             {this.getListArea()}
           </SearchWrapper>
           <Addition>
-            <Button className='writting'>
-              <i className="iconfont icon-yumaobi"></i>
-              写文章
-            </Button>
+            <Link to='/write'>
+              <Button className='writting'>
+                <i className="iconfont icon-yumaobi"></i>
+                写文章
+              </Button>
+            </Link>
             <Button className='reg'>注册</Button>
           </Addition>
         </Nav>

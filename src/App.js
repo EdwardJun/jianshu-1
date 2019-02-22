@@ -6,6 +6,7 @@ import store from './store'
 import Home from './pages/home'
 import Detail from './pages/detail'
 import Login from './pages/login'
+import Write from './pages/write'
 
 class App extends PureComponent {
   render() {
@@ -19,6 +20,7 @@ class App extends PureComponent {
               <div>
                 <Route path='/' exact component={Home}></Route>
                 <Route path='/detail/:id' exact component={Detail}></Route>
+                <Route path='/write' exact component={Write}></Route>
               </div>
             </div>
           </BrowserRouter>
